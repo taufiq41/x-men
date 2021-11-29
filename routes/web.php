@@ -23,4 +23,7 @@ use App\Http\Controllers\Auth\LoginController;
 Route::get('/',[LoginController::class,'showLoginForm'])->name('home');
 Route::post('/login',[LoginController::class,'login'])->name('login');
 Route::get('/logout',[LoginController::class,'logout'])->name('logout');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/hero',[HeroController::class,'index'])->name('hero.index');
+
+Route::get('/skill',[SkillController::class,'index'])->name('skill.index');

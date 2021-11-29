@@ -15,7 +15,7 @@ class HeroController extends Controller
      */
     public function index()
     {
-        //
+        return view('hero.index');
     }
 
     

@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('vendor/toastr/toastr.css') }}">
-    
+
     @yield('css')
 </head>
 <body>
@@ -36,7 +36,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('hero.index') }}">Heroes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('skill.index') }}">Skill</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
