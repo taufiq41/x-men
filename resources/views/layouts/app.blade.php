@@ -11,13 +11,16 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('vendor/toastr/toastr.css') }}">
+    
+    @yield('css')
 </head>
 <body>
     <div id="app">
@@ -79,5 +82,9 @@
             @yield('content')
         </main>
     </div>
+    @yield('modal')
 </body>
+@yield('script')
+<script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
 </html>
