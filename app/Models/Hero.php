@@ -5,8 +5,7 @@ namespace App\Models;
 use App\Models\JenisKelamin as ModelsJenisKelamin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Skill;
-use JenisKelamin;
+
 class Hero extends Model
 {
     protected $table        = 'heroes';

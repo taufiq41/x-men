@@ -9,7 +9,7 @@ use Hero;
 class Skill extends Model
 {
     protected $table        = 'skills';
-    public $timestamps   =  true;
+    public $timestamps   =  false;
     
     protected $fillable = [
         'nama'

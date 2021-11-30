@@ -15,6 +15,7 @@
                            <tr>
                                <td>Hero</td>
                                <td>Jenis Kelamin</td>
+                               <td></td>
                            </tr>
                        </thead>
                        <tbody>
@@ -102,25 +103,33 @@
                 },
                 columnDefs: [
                     {
-                        targets: [0,1],
+                        targets: [0],
                         render: function ( data, type, row, meta ) {
                             return data;
+                        }
+                    },
+                    {
+                        targets: [1],
+                        render: function ( data, type, row, meta ) {
+                            return data[0].nama;
                         }
                     },
                     {
                         targets: [2],
                         className: 'text-center',
                         render: function ( data, type, row, meta ) {
+
+                            var url = "{{ url('') }}/hero/show/"+data;
                             
-                            var component = '<a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick=edit("'+data+'")><i class="fa fa-edit"> </i>Edit</a>';   
-                            
+                            var component = '<a href="'+url+'" class="btn btn-warning btn-sm"><i class="fa fa-edit"> </i>Detail</a>';   
+                            component += '<a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick=hapus("'+data+'")><i class="fa fa-edit"> </i>Hapus</a>';
                             return component;
                         }
                     }
                 ],
                 columns: [
                     { data: 'nama', name: 'nama' },
-                    { data: 'jenis_kelamin_nama', name: 'jenis_kelamin_nama' },
+                    { data: 'join_jenis_kelamin', name: 'join_jenis_kelamin' },
                     { data: 'id', name: 'id' }
                 ],
                 search: {
@@ -237,6 +246,42 @@
                 }    
                 
             });
+        }
+
+        function hapus(id){
+
+            Swal.fire({
+                title: 'Yakin hapus hero?',
+                text: "hero yang terhapus tidak bisa dikembalikan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+
+                    var url = "{{ url('') }}/hero/destroy/"+id;
+
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data:{'_method' : 'DELETE'},
+                        dataType: "JSON",
+                        success: function(data){
+
+                            if(data.result){
+                                
+                                loadTable();
+                            }else{
+                                
+                            } 
+
+                        }
+                    });
+
+                }
+                });
         }
    </script>
 @endsection

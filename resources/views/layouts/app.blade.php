@@ -8,7 +8,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -17,6 +17,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('vendor/toastr/toastr.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/sweetalert2/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/datatable/datatables.min.css') }}">
     @yield('css')
 </head>
@@ -91,8 +92,8 @@
     @yield('modal')
 </body>
 
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}"></script>
+{{-- <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script> --}}
+<script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}" defer></script>
 <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('vendor/datatable/datatables.min.js') }}" defer></script>
 

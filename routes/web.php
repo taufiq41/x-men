@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\HeroSkillController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,13 +30,22 @@ Route::get('/home',[HomeController::class,'index'])->name('home');
 
 Route::group(['middleware' => 'auth'],function(){
     Route::get('/hero',[HeroController::class,'index'])->name('hero.index');
+    Route::get('/hero/show/{id}',[HeroController::class,'show'])->name('hero.show');
     Route::post('/hero/store',[HeroController::class,'store'])->name('hero.store');
     Route::get('/hero/edit/{id}',[HeroController::class,'edit'])->name('hero.edit');
     Route::put('/hero/update/{id}',[HeroController::class,'update'])->name('hero.update');
-
     Route::post('/hero/datatable',[HeroController::class,'datatable'])->name('hero.datatable');
-    //Route::delete('/hero',[HeroController::class,'index'])->name('hero.index');
+    Route::delete('/hero/destroy/{id}',[HeroController::class,'destroy'])->name('hero.destroy');
 
     Route::get('/skill',[SkillController::class,'index'])->name('skill.index');
+    Route::get('/skill/show/{id}',[SkillController::class,'show'])->name('skill.show');
+    Route::post('/skill/store',[SkillController::class,'store'])->name('skill.store');
+    Route::get('/skill/edit/{id}',[SkillController::class,'edit'])->name('skill.edit');
+    Route::put('/skill/update/{id}',[SkillController::class,'update'])->name('skill.update');
+    Route::post('/skill/datatable',[SkillController::class,'datatable'])->name('skill.datatable');
+    Route::delete('/skill/destroy/{id}',[SkillController::class,'destroy'])->name('skill.destroy');
+
+    Route::post('/heroskill/store/{hero_id}',[HeroSkillController::class,'store'])->name('heroskill.store');
+    Route::delete('/heroskill/destroy/{id}',[HeroSkillController::class,'destroy'])->name('heroskill.destroy');
 });
 

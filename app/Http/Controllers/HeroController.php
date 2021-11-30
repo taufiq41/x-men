@@ -7,6 +7,7 @@ use App\Models\Hero;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use App\Models\JenisKelamin;
+use App\Models\Skill;
 
 class HeroController extends Controller
 {
@@ -31,13 +32,16 @@ class HeroController extends Controller
         
         $search_all = $request->input('search')['value'];
         
-        $result = Hero::select('heroes.id','heroes.nama','jenis_kelamin.nama AS jenis_kelamin_nama')->joinJenisKelamin();
-
+        $result = Hero::with(['joinJenisKelamin']);
+                   
         if($search_all != null && $search_all != ""){
             $result = $result->where(function($query) use($search_all){
-                    $query->orWhere('heroes.nama','like','%'.$search_all.'%');
-                    $query->orWhere('jenis_kelamin.nama','like','%'.$search_all.'%');
-                    
+
+                $query->whereHas('joinJenisKelamin', function ($query) use ($search_all) {
+                    $query->where('nama', 'LIKE', '%' . $search_all . '%');
+                });
+                $query->orWhere('heroes.nama','like','%'.$search_all.'%');
+
             });
         }
 
@@ -104,7 +108,10 @@ class HeroController extends Controller
      */
     public function show($id)
     {
-        //
+        $jenis_kelamin = JenisKelamin::all();
+        $hero = Hero::find($id);
+        $skill = Skill::all();
+        return view('hero.view', compact('hero','jenis_kelamin','skill'));
     }
 
     /**
@@ -128,7 +135,25 @@ class HeroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->only(['nama','jenis_kelamin']);
+
+        $validator = Validator::make($data,[
+            'nama' => 'required',
+            'jenis_kelamin' => 'required'
+        ]);
+
+        if ($validator->passes()) {
+
+            $update = Hero::where('id',$id)->update($data);
+            if($update){
+                return response()->json(['result' => true, 'keterangan' => 'Hero berhasil di Update']);
+            }else{
+                return response()->json(['result' => false, 'keterangan' => 'Hero gagal di Update']);
+            }
+        }
+
+        return redirect('/hero/show/'.$id)->with('error', $validator->errors());
+        //return response()->json(['error'=> $validator->errors(),'data' => $data]);
     }
 
     /**
@@ -139,6 +164,14 @@ class HeroController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // forceDelete
+        $delete = Hero::where('id', $id)->delete();
+        if($delete){
+           $response = ['result' => true, 'keterangan' => 'Hero berhasil di hapus']; 
+        }else{
+            $response = ['result' => false,'keterangan' => 'Hero gagal di hapus'];
+        }
+
+        return response()->json($response);
     }
 }
