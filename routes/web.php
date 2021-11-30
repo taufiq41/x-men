@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\SkillController;
-use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,15 +15,27 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-//Auth::routes();
-Route::get('/',[LoginController::class,'showLoginForm'])->name('home');
-Route::post('/login',[LoginController::class,'login'])->name('login');
-Route::get('/logout',[LoginController::class,'logout'])->name('logout');
+Auth::routes();
+//Route::get('/',[LoginController::class,'showLoginForm'])->name('/');
+// Route::get('/login',[LoginController::class,'showLoginForm'])->name('login');
+// Route::post('/login',[LoginController::class,'login'])->name('login');
+// Route::get('/logout',[LoginController::class,'logout'])->name('logout');
 
-Route::get('/hero',[HeroController::class,'index'])->name('hero.index');
+Route::get('/home',[HomeController::class,'index'])->name('home');
 
-Route::get('/skill',[SkillController::class,'index'])->name('skill.index');
+Route::group(['middleware' => 'auth'],function(){
+    Route::get('/hero',[HeroController::class,'index'])->name('hero.index');
+    Route::post('/hero/store',[HeroController::class,'store'])->name('hero.store');
+    Route::get('/hero/edit/{id}',[HeroController::class,'edit'])->name('hero.edit');
+    Route::put('/hero/update/{id}',[HeroController::class,'update'])->name('hero.update');
+
+    Route::post('/hero/datatable',[HeroController::class,'datatable'])->name('hero.datatable');
+    //Route::delete('/hero',[HeroController::class,'index'])->name('hero.index');
+
+    Route::get('/skill',[SkillController::class,'index'])->name('skill.index');
+});
+

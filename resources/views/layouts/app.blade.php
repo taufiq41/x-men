@@ -3,15 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -19,7 +17,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('vendor/toastr/toastr.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('vendor/datatable/datatables.min.css') }}">
     @yield('css')
 </head>
 <body>
@@ -36,12 +34,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('hero.index') }}">Heroes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('skill.index') }}">Skill</a>
-                        </li>
+                        @if (Auth::check())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('hero.index') }}">Heroes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('skill.index') }}">Skill</a>
+                            </li>
+                        @endif
+                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -62,7 +63,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->nama }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -89,7 +90,12 @@
     </div>
     @yield('modal')
 </body>
-@yield('script')
+
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('vendor/datatable/datatables.min.js') }}" defer></script>
+
+@yield('script')
+
 </html>

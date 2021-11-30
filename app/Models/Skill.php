@@ -9,7 +9,11 @@ use Hero;
 class Skill extends Model
 {
     protected $table        = 'skills';
-    protected $timestamps   =  true;
+    public $timestamps   =  true;
+    
+    protected $fillable = [
+        'nama'
+    ];
 
     public function joinHero(){
         return $this->belongsToMany(Hero::class);
