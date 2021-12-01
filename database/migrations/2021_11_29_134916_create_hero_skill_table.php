@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHeroSkillsTable extends Migration
+class CreateHeroSkillTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateHeroSkillsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hero_skills', function (Blueprint $table) {
+        Schema::create('hero_skill', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hero_id')->constrained()->nullable()->references('id')->on('heroes');
             $table->foreignId('skill_id')->constrained()->nullable()->references('id')->on('skills')->onDelete('cascade');
@@ -28,6 +28,6 @@ class CreateHeroSkillsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hero_skills');
+        Schema::dropIfExists('hero_skill');
     }
 }

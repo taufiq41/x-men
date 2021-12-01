@@ -9,13 +9,11 @@ use Hero;
 class Skill extends Model
 {
     protected $table        = 'skills';
-    public $timestamps   =  true;
+    public $timestamps   =  false;
     
-    protected $fillable = [
-        'nama'
-    ];
+    protected $fillable = ['nama'];
 
     public function joinHero(){
-        return $this->belongsToMany(Hero::class);
+        return $this->belongsToMany(Hero::class,'hero_skill','skill_id','hero_id')->withPivot('id');
     }
 }

@@ -5,12 +5,11 @@ namespace App\Models;
 use App\Models\JenisKelamin as ModelsJenisKelamin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Skill;
-use JenisKelamin;
+
 class Hero extends Model
 {
     protected $table        = 'heroes';
-    public $timestamps   =  true;
+    public $timestamps      =  true;
 
     protected $fillable = [
         'nama',
@@ -18,7 +17,7 @@ class Hero extends Model
     ];
 
     public function joinSkill(){
-        return $this->belongsToMany(Skill::class);
+        return $this->belongsToMany(Skill::class,'hero_skill','hero_id','skill_id')->withPivot('id');
     }
 
     public function joinJenisKelamin(){

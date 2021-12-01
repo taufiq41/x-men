@@ -14,9 +14,9 @@ class JenisKelaminSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('jenis_kelamin')->insert(
+        DB::table('jenis_kelamin')->insert([
             ['jenis_kelamin' => 'L','nama'          => 'Laki - Laki'],
-            ['jenis_kelamin' => 'P','nama'          => 'Perempuan'],
-        );
+            ['jenis_kelamin' => 'P','nama'          => 'Perempuan'],   
+        ]);
     }
 }
