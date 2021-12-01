@@ -15,6 +15,7 @@ CARA INSTALLASI
 - npm install
 - npm run dev
 
+username dan password Login bisa di lihat di Seeder
 ## License
 
 Bebas di gunakan siapa saja, :)
