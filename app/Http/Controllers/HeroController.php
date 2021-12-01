@@ -165,14 +165,25 @@ class HeroController extends Controller
      */
     public function destroy($id)
     {
-        // forceDelete
-        $delete = Hero::where('id', $id)->delete();
-        if($delete){
-           $response = ['result' => true, 'keterangan' => 'Hero berhasil di hapus']; 
-        }else{
-            $response = ['result' => false,'keterangan' => 'Hero gagal di hapus'];
-        }
 
-        return response()->json($response);
+        try{
+
+            $delete = Hero::where('id', $id)->delete();
+            if($delete){
+                $response = ['result' => true, 'keterangan' => 'Hero berhasil di hapus']; 
+            }else{
+                $response = ['result' => false,'keterangan' => 'Hero gagal di hapus'];
+            }
+
+            return response()->json($response);
+        }catch(\Illuminate\Database\QueryException $e){
+            if($e->errorInfo[1] == 1451 || $e->errorInfo[1] == 1452){
+                $response = ['result' => false,'keterangan' => 'Data tidak bisa di hapus, karena masih ada data yang terkait dengan data hero ini'];
+                return response()->json($response);
+            }else{
+                $response = ['result' => false,'keterangan' => 'Data tidak bisa di hapus, ada kesalahan'];
+                return response()->json($response);
+            }
+        }
     }
 }

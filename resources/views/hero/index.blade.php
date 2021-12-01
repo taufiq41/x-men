@@ -44,7 +44,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST" id="form">
+                <form method="POST" id="form">
                     @csrf
                     <div class="form-group">
                         <label for="nama">Nama</label>
@@ -59,13 +59,12 @@
                             @endforeach
                         </select>
                     </div>
-                    
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" id="btnSave">Simpan</button>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="save()" id="btnSave">Simpan</button>
-            </div>
+            
         </div>
         </form>
     </div>
@@ -173,29 +172,31 @@
             $('.modal-title').text('Tambah Hero Baru');
         }
 
-        function edit(id){   
+        // function edit(id){   
         
-            actionModal = 'update';
-            resetForm();
+        //     actionModal = 'update';
+        //     resetForm();
             
-            $.ajax({
-                url : "{{ url('') }}/hero/edit/"+id,
-                type: "GET",
-                dataType: "JSON",
-                success: function(data)
-                {
-                    $('#modal').modal('show');
-                    $('.modal-title').text('Ubah Data Hero');
-                    idForm = data.id;
-                    $("input[name=nama]").val(data.nama);
-                    $("select[name=jenis_kelamin]").val(data.jenis_kelamin);
+        //     $.ajax({
+        //         url : "{{ url('') }}/hero/edit/"+id,
+        //         type: "GET",
+        //         dataType: "JSON",
+        //         success: function(data)
+        //         {
+        //             $('#modal').modal('show');
+        //             $('.modal-title').text('Ubah Data Hero');
+        //             idForm = data.id;
+        //             $("input[name=nama]").val(data.nama);
+        //             $("select[name=jenis_kelamin]").val(data.jenis_kelamin);
                     
-                }
-            });
-        }
+        //         }
+        //     });
+        // }
 
-        function save(){
-        
+        $('#form').submit(function ( e ) {
+
+            e.preventDefault();
+
             $('#btnSave').text('Menyimpan...');
             $('#btnSave').attr('disabled', true);
             var url;
@@ -236,8 +237,8 @@
                     }
                 }
             });
-            
-        }
+
+        });
         
         function printErrorMsg (msg) {
                 
@@ -284,10 +285,10 @@
                         success: function(data){
 
                             if(data.result){
-                                
+                                toastr.success(data.keterangan);
                                 loadTable();
                             }else{
-                                
+                                toastr.error(data.keterangan);
                             } 
 
                         }
