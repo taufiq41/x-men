@@ -55,7 +55,6 @@
                            <tr>
                                <td>No</td>
                                <td>Skill</td>
-                               <td></td>
                            </tr>
                        </thead>
                        <tbody>
@@ -89,24 +88,24 @@
             }
         });
 
-
         function loadTable(){
 
-            if(hero_id_laki_laki == "" || hero_id_perempuan == ""){
-                alert("data harus di isi semua");
-                exit;
-            }
+            
 
             var formData = new FormData($('#form')[0]);
 
             var hero_id_laki_laki = formData.get('hero_id_laki_laki');
-            console.log(hero_id_laki_laki);
             var hero_id_perempuan = formData.get('hero_id_perempuan');
 
+            if(hero_id_laki_laki == "" || hero_id_perempuan == ""){
+                toastr.warning("data harus di isi semua");
+                exit;
+            }
             
             if(table != null){
                 table.destroy();
             }
+            
             table = $('#table').DataTable({
                 lengthMenu: [[-1], ["All"]],
                 pagingType: "full_numbers",
@@ -127,14 +126,21 @@
                 },
                 columnDefs: [
                     {
-                        targets: [0,1],
+                        targets: [0],
                         render: function ( data, type, row, meta ) {
-                            return data[0].nama;
+                            var rowIndex = meta.row+1;
+                            return rowIndex;
+                        }
+                    },
+                    {
+                        targets: [1],
+                        render: function ( data, type, row, meta ) {
+                            return data.nama;
                         }
                     }
                 ],
                 columns: [
-                    { data: 'nama', name: 'nama' },
+                    { },
                     { data: 'join_skill', name: 'join_skill' }
                 ],
                 search: {

@@ -105,7 +105,7 @@
 
 @if (Session::has('failure'))
 <script>
-    toastr.success("{!! Session::get('failure') !!}");
+    toastr.error("{!! Session::get('failure') !!}");
 </script>
 @endif
 @if(Session::has('success'))

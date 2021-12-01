@@ -19,7 +19,7 @@ use App\Http\Controllers\CombinationController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();

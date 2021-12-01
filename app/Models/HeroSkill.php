@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Skill;
 
 class HeroSkill extends Model
 {
@@ -16,5 +17,7 @@ class HeroSkill extends Model
         'skill_id'
     ];
 
-    
+    public function joinSkill(){
+        return $this->belongsTo(Skill::class,'skill_id','id');
+    }
 }

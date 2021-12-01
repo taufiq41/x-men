@@ -53,7 +53,7 @@ class HeroSkillController extends Controller
 
         if ($validator->passes()) {
             
-            $cek = HeroSkill::where('hero_id',$id)->where('skill_id',$data['skill_id'])->get();
+            $cek = HeroSkill::where('hero_id',$data['hero_id'])->where('skill_id',$id)->get();
             if(count($cek) == 0){
 
                 $insert = HeroSkill::create($data);

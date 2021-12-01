@@ -53,6 +53,8 @@ class HeroController extends Controller
 
         if($length != -1){
             $result = $result->skip($start)->take($length)->get();
+        }else{
+            $result = $result->get();
         }
 
         $data = $result;

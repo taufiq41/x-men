@@ -23,7 +23,7 @@ class CombinationController extends Controller
         return view('combination.index',compact('hero_laki_laki','hero_perempuan'));
     }
 
-    public function apply(Request $request){
+    public function datatable(Request $request){
 
         $data = $request->only(['hero_id_laki_laki','hero_id_perempuan']);
 
@@ -39,9 +39,9 @@ class CombinationController extends Controller
 
             // $search_all = $request->input('search')['value'];
         
-            $result = HeroSkill::where(function($query) use($hero_id_laki_laki,$hero_id_perempuan){
-                $query->where('hero_id',$hero_id_laki_laki);
-                $query->orWhere('hero_id',$hero_id_perempuan);
+            $result = HeroSkill::with(['joinSkill'])->where(function($query) use($hero_id_laki_laki,$hero_id_perempuan){
+                $query->where('hero_skill.hero_id',$hero_id_laki_laki);
+                $query->orWhere('hero_skill.hero_id',$hero_id_perempuan);
             });
 
 
@@ -50,9 +50,9 @@ class CombinationController extends Controller
             $start = $request->input('start');
         
             if($length != -1){
-                $result = $result->groupBy('skill_id')->skip($start)->take($length)->get();
+                $result = $result->groupBy('hero_skill.skill_id')->skip($start)->take($length)->get();
             }else{
-                $result = $result->groupBy('skill_id')->get();
+                $result = $result->groupBy('hero_skill.skill_id')->get();
             }
 
             $data = $result;
