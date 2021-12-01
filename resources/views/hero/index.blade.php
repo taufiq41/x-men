@@ -68,6 +68,7 @@
 @endsection
 
 @section('script')
+
    <script>
         var table;
         var actionModal;
@@ -142,7 +143,7 @@
             $('#btnSave').attr('disabled', false);
             idForm = "";
         }
-        
+
         function add(){
             actionModal = 'add';
         
