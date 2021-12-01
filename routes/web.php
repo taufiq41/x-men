@@ -52,6 +52,6 @@ Route::group(['middleware' => 'auth'],function(){
     Route::delete('/heroskill/destroy_hero/{id}/{skill_id}',[HeroSkillController::class,'destroy_hero'])->name('heroskill.destroy_hero');
 
     Route::get('/combination',[CombinationController::class,'index'])->name('combination.index');
-    Route::post('/combination/apply',[CombinationController::class,'apply'])->name('combination.apply');
+    Route::post('/combination/datatable',[CombinationController::class,'datatable'])->name('combination.datatable');
 });
 
