@@ -12,14 +12,12 @@
                 <div class="card-body">
                    <form action="{{ route('hero.update',['id' => $hero->id]) }}" method="POST">
                         @method('PUT')
+                        @csrf
                         <div class='d-flex justify-content-between align-items-center'>
                             <h5>{{ 'Detail Super Hero : '.$hero->nama }}</h5>
                             <div class="btn-group">
                                 <button href="javascript:void(0)" class="btn btn-primary btn-sm">Simpan</button>
-                                {{-- <form action="{{ route('hero.destroy',$hero->id) }}" method="POST">
-                                    @method('delete')
-                                    <button href="javascript:void(0)" class="btn btn-danger btn-sm">Hapus</button>
-                                </form> --}}
+                              
                             </div>
                         </div>
                         <table class="table table-borderd ">
@@ -77,7 +75,7 @@
                            @foreach ($hero->joinSkill as $value)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $value->nama.' - '.$value->pivot->id }}</td>
+                                    <td>{{ $value->nama }}</td>
                                     <td>
                                         <form action="{{ route('heroskill.destroy_skill',['id' => $value->pivot->id, 'hero_id' => $hero->id]) }}" method="POST">
                                             @method('delete')

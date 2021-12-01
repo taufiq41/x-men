@@ -7,8 +7,7 @@ use App\Models\Skill;
 use App\Models\Hero;
 use Validator;
 class SkillController extends Controller
-{
-    
+{ 
     public function index()
     {
         return view('skill.index');
@@ -83,12 +82,7 @@ class SkillController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
         $skill = Skill::find($id);
@@ -97,12 +91,7 @@ class SkillController extends Controller
         return view('skill.view',compact('skill','hero'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         $result = Skill::find($id);
@@ -117,18 +106,18 @@ class SkillController extends Controller
         $validator = Validator::make($data,[
             'nama' => 'required'
         ]);
-
+        
         if ($validator->passes()) {
 
             $update = Skill::where('id',$id)->update($data);
             if($update){
-                return response()->json(['result' => true, 'keterangan' => 'Skill berhasil di Update']);
+                return redirect()->route('skill.show',['id' => $id])->with('success', 'Berhasil update data skill');
             }else{
-                return response()->json(['result' => false, 'keterangan' => 'Skill gagal di Update']);
+                return redirect()->route('skill.show',['id' => $id])->with('failure', 'Gagal update data skill');
             }
         }
 
-        return response()->json(['error'=> $validator->errors(),'data' => $data]);
+        return redirect()->route('skill.show',['id' => $id])->withInput()->withErrors($validator);
     }
 
     public function destroy($id)

@@ -95,7 +95,8 @@
                     {
                         targets: [0],
                         render: function ( data, type, row, meta ) {
-                            return 'no';
+                            var rowIndex = meta.row+1;
+                            return rowIndex;
                         }
                     },
                     {

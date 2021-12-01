@@ -30,7 +30,7 @@ class HeroSkillController extends Controller
                 }else{
                     return redirect()->route('hero.show',['id' => $id])->with('failure', 'Skill gagal di tambah');
                 }
-                
+
             }else{
                 return redirect()->route('hero.show',['id' => $id])->with('failure', 'Skill sudah di tambahkan');
             }
@@ -49,7 +49,27 @@ class HeroSkillController extends Controller
             'hero_id' => 'required'
         ]);
 
-        
+        $data['skill_id'] = $id;
+
+        if ($validator->passes()) {
+            
+            $cek = HeroSkill::where('hero_id',$id)->where('skill_id',$data['skill_id'])->get();
+            if(count($cek) == 0){
+
+                $insert = HeroSkill::create($data);
+                if($insert){
+                    return redirect()->route('skill.show',['id' => $id])->with('success', 'Hero berhasil di tambah');
+                }else{
+                    return redirect()->route('skill.show',['id' => $id])->with('failure', 'Hero gagal di tambah');
+                }
+                
+            }else{
+                return redirect()->route('skill.show',['id' => $id])->with('failure', 'Hero sudah di tambahkan');
+            }
+            
+        }
+
+        return redirect()->route('skill.show',['id' => $id])->withInput()->withErrors($validator);
     }
 
     public function destroy_skill($id,$hero_id)

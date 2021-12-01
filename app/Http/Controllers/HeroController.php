@@ -145,14 +145,14 @@ class HeroController extends Controller
 
             $update = Hero::where('id',$id)->update($data);
             if($update){
-                return response()->json(['result' => true, 'keterangan' => 'Hero berhasil di Update']);
+                return redirect()->route('hero.show',['id' => $id])->with('success', 'Berhasil update data hero');
             }else{
-                return response()->json(['result' => false, 'keterangan' => 'Hero gagal di Update']);
+                return redirect()->route('hero.show',['id' => $id])->with('failure', 'Gagal update data hero');
             }
         }
 
-        return redirect('/hero/show/'.$id)->with('error', $validator->errors());
-        //return response()->json(['error'=> $validator->errors(),'data' => $data]);
+        return redirect()->route('hero.show',['id' => $id])->withInput()->withErrors($validator);
+        
     }
 
     /**

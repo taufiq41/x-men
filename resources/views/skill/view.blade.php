@@ -12,8 +12,9 @@
                 <div class="card-body">
                    <form action="{{ route('skill.update',['id' => $skill->id]) }}" method="POST">
                         @method('PUT')
+                        @csrf
                         <div class='d-flex justify-content-between align-items-center'>
-                            <h5>{{ 'Detail Super Hero : '.$hero->nama }}</h5>
+                            <h5>{{ 'Detail Super Hero : '.$skill->nama }}</h5>
                             <div class="btn-group">
                                 <button href="javascript:void(0)" class="btn btn-primary btn-sm">Simpan</button>
                                 {{-- <form action="{{ route('hero.destroy',$hero->id) }}" method="POST">
@@ -35,7 +36,7 @@
                         </table>
                    </form>
                    <br>
-                   <form action="{{ route('heroskill.store',['skill_id' => $skill->id]) }}" class="form-horizontal" method="POST">
+                   <form action="{{ route('heroskill.store_hero',['skill_id' => $skill->id]) }}" class="form-horizontal" method="POST">
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-10">
@@ -66,9 +67,9 @@
                            @foreach ($skill->joinHero as $value)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $value->nama.' - '.$value->pivot->id }}</td>
+                                    <td>{{ $value->nama }}</td>
                                     <td>
-                                        <form action="{{ route('heroskill.destroy2',['id' => $value->pivot->id, 'skill_id' => $skill->id]) }}" method="POST">
+                                        <form action="{{ route('heroskill.destroy_hero',['id' => $value->pivot->id, 'skill_id' => $skill->id]) }}" method="POST">
                                             @method('delete')
                                             @csrf
                                             <button class="btn btn-danger btn-sm">Hapus</button>
