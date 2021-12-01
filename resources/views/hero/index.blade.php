@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('vendor/datatable/Buttons-2.0.1/css/buttons.dataTables.min.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -69,7 +73,14 @@
 @endsection
 
 @section('script')
-   <script>
+
+    <script src="{{ asset('vendor/datatable/Buttons-2.0.1/js/dataTables.buttons.min.js') }}" defer></script>
+    <script src="{{ asset('vendor/datatable/JSZip-2.5.0/jszip.min.js') }}" defer></script>
+    <script src="{{ asset('vendor/datatable/pdfmake-0.1.3.6/pdfmake.min.js') }}" defer></script>
+    <script src="{{ asset('vendor/datatable/pdfmake-0.1.3.6/vfs_fonts.js') }}" defer></script>
+    <script src="{{ asset('vendor/datatable/Buttons-2.0.1/js/buttons.html5.min.js') }}" defer></script>
+    <script src="{{ asset('vendor/datatable/Buttons-2.0.1/js/buttons.print.min.js') }}" defer></script>
+    <script>
         var table;
         var actionModal;
         var idForm;
@@ -89,6 +100,7 @@
                 table.destroy();
             }
             table = $('#table').DataTable({
+                dom: 'Bfrtip',
                 processing: true,
                 serverSide: true,
                 searching: true,
@@ -96,6 +108,7 @@
                 bFilter: true,
                 bAutoWidth: true,
                 buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
                 ],
                 ajax: {
                     url : '{{ route('hero.datatable') }}',

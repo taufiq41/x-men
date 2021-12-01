@@ -41,6 +41,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('skill.index') }}">Skill</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('combination.index') }}">Combination</a>
+                            </li>
                         @endif
                         
                     </ul>
@@ -95,6 +98,7 @@
 <script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}" defer></script>
 <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('vendor/datatable/datatables.min.js') }}" ></script>
+
 
 @yield('script')
 
