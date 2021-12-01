@@ -19,7 +19,7 @@
                         <div class='d-flex justify-content-between align-items-center'>
                             <h5>{{ 'Simulasi jika menikah'}}</h5>
                             <div class="btn-group">
-                                <a href="javascript:void(0)" onclick="apply()" class="btn btn-primary btn-sm">Cek Simulasi</a>
+                                <a href="javascript:void(0)" onclick="loadTable()" class="btn btn-primary btn-sm">Cek Simulasi</a>
                             </div>
                         </div>
                         <table class="table table-borderd ">
@@ -97,10 +97,10 @@
                 exit;
             }
 
-            var url = "{{ route('combination.apply') }}";
             var formData = new FormData($('#form')[0]);
 
             var hero_id_laki_laki = formData.get('hero_id_laki_laki');
+            console.log(hero_id_laki_laki);
             var hero_id_perempuan = formData.get('hero_id_perempuan');
 
             

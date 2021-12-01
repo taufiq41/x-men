@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\HeroSkillController;
+use App\Http\Controllers\CombinationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
